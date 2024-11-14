@@ -1,0 +1,112 @@
+{% extends 'style.html' %}
+
+
+
+{% block content%}
+
+    
+<style>
+  .bus-seat {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width:20%;
+  }
+
+.seat {
+  width: 50px;
+  height: 30px;
+  margin-bottom: 10px; /* add margin bottom instead of margin */
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.seat.available {
+  background-color: #3783b5;
+  color: #fff;
+  border-color: #999;
+}
+
+.seat.unavailable {
+  background-color: #f73737;
+  color: #fff;
+  border-color: #999;
+}
+
+.seat:nth-child(2n+3) { /* apply a margin-left for the 3rd, 5th, 7th etc seats */
+  margin-left: 10px;
+}
+
+.seat-label {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2px;
+  pointer-events: none;
+}
+
+
+  
+</style>
+  </head>
+  <body>
+    <h1>Bus Seat Selection</h1>
+    <div>
+      <h2>Bus: {{ bus.bname }}</h2>
+      <h3>Source: {{ bus.source }}</h3>
+      <h3>Destination: {{ bus.dest }}</h3>
+      <h3>Destination: {{ bus.nos }}</h3>
+      
+      
+      
+      
+      <form method="post" action=""> 
+        {% csrf_token %}
+       
+        <div class="bus-seat" >
+          
+              {% for seat in seats %}
+                  <div class="seat{% if seat.is_available %} available{% else %} unavailable{% endif %}">
+                    
+                    
+                      
+               <input type="radio" id="seat{{ seat.id }}" name="seatid" value="{{ seat.id }}:{{ seat.number }}" {% if not seat.is_available %}disabled{% endif %}>
+               <span class="seat-label"> {{ seat.number }}</span>
+               
+               
+
+                        
+                    
+                </div>
+              {% endfor %}
+          
+
+
+        </div>
+        
+        <label for="departure-date">Departure Date:</label>
+        <input type="date" id="departure-date" name="departure_date" required><br><br>
+    
+        <input type="hidden" name="price" value="{{ bus.fare }}">
+        
+
+
+      
+        
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        
+        
+      </form>
+    </div>
+  </body>
+
+
+{% endblock %}

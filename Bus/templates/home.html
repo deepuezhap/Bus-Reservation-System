@@ -1,0 +1,16 @@
+{% extends 'style.html' %}
+
+
+
+{% block content%}
+
+{% if user.is_authenticated %}
+    <p> Welcome, {{ user.username }}.
+        Thanks for logging in.</p>
+    
+    
+{% else %}
+    <p> Welcome, new user Please log in. </p>
+
+{% endif %}
+{% endblock %}

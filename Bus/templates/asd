@@ -1,0 +1,149 @@
+
+<!-- sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
+
+
+
+{% extends 'style.html' %}
+
+
+
+{% block content%}
+
+    <style>
+   .bus-seat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+      .seat {
+        width: 50px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+      }
+
+      .seat.available {
+        background-color: #3783b5;
+        color: #fff;
+        border-color: #999;
+      }
+
+      
+      .seat.unavailable {
+        background-color: #f73737;
+        color: #fff;
+        border-color: #999;
+        
+      }
+      
+
+      .seat-label {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 2px;
+        pointer-events: none;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <h1>Bus Seat Selection</h1>
+    <div>
+      <h2>Bus: {{ bus.name }}</h2>
+      <h3>Route: {{ bus.route }}</h3>
+      <form method="post" action=""> 
+        {% csrf_token %}
+       
+        <div class="bus-seat" >
+            
+             
+          {% for seat in seats %}
+          
+
+
+          <div class="seat{% if seat.is_available %} available{% else %} unavailable{% endif %}">
+            <label for="seat{{ seat.id }}">
+              <input type="radio" id="seat{{ seat.id }}" name="selected_seats" value="{{ seat.id }}" {% if not seat.is_available %}disabled{% endif %}>
+              <span class="seat-label">{{ seat.id }}</span>
+            </label>
+          </div>
+          {% endfor %}
+          
+        </div>
+        
+        <div>
+          <label for="passenger-name">Passenger Name:</label>
+          <input type="text" id="passenger-name" name="passenger_name">
+        </div>
+        <div>
+          <button type="submit">Reserve Seats</button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+
+{% endblock %}
+<!-- sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
+
+<style>
+  .bus-seat {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width:20%;
+
+  }
+
+
+  .seat {
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+  }
+
+  .seat.available {
+    background-color: #3783b5;
+    color: #fff;
+    border-color: #999;
+  }
+
+  
+  .seat.unavailable {
+    background-color: #f73737;
+    color: #fff;
+    border-color: #999;
+    
+  }
+  
+
+  .seat-label {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 2px;
+    pointer-events: none;
+  }
+
+  
+</style>
+<!-- sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->

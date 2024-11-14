@@ -1,0 +1,41 @@
+
+{% extends 'style.html' %}
+
+
+
+{% block content%}
+<h3>Reservation</h3>
+
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Bus name</th>
+        <th scope="col">Source</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Fare</th>
+        <th scope="col">Departure Time</th>
+        <th scope="col">Arrival Time</th>
+        <th scope="col">Print</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      {% with forloop.counter as num %}
+      <tr>
+        <th scope="row">{{ num }}</th>
+        <td>{{item.bus.bname}}</td>
+        <td>{{ item.bus.source}}</td>
+        <td>{{ item.bus.dest}}</td>
+        <td>{{ item.bus.fare}}</td>
+        <td>{{ item.bus.departure_time}}</td>
+        <td>{{ item.bus.arrival_time}}</td>
+        <td><a href="{% url 'generate_pdf' %}?id={{ item.id }}"><button type="button" class="btn btn-secondary">Print ticket</button></a></td>
+        <td></td>
+      </tr>
+      {% endwith %}
+      {%endfor%}
+    </tbody>
+  </table>
+
+{% endblock %}

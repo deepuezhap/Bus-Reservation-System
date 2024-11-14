@@ -1,0 +1,40 @@
+{% extends 'busopnavbar.html' %}
+
+
+
+{% block content%}
+<h3>bus op bus list</h3>
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Bus name</th>
+        <th scope="col">Source</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Fare</th>
+        <th scope="col">Departure time</th>
+        <th scope="col">Arrival time</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      {% for bus in buses %}
+      {% with forloop.counter as num %}
+      
+      <tr>
+        <th scope="row">{{ num }}</th>
+        <td>{{ bus.bname}}</td>
+        <td>{{ bus.source}}</td>
+        <td>{{ bus.dest}}</td>
+        <td>{{ bus.fare}}</td>
+        <td>{{ bus.departure_time}}</td>
+        <td>{{ bus.arrival_time}}</td>
+      </tr>
+      {%endwith%}
+      {%endfor%}
+    </tbody>
+  </table>
+
+{% endblock %}

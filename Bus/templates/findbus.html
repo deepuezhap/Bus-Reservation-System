@@ -1,0 +1,34 @@
+{% extends 'style.html' %}
+
+
+
+{% block content%}
+<br><br>
+<form action="{% url 'findbus' %}" method="POST" >{% csrf_token %}
+<select class="form-select" aria-label="Default select example" name="source" required>
+  <option value="0">Source</option>
+
+    {% for place in item %}
+
+    <option value="{{place.id}}">{{ place.location }}</option>
+
+    {% endfor item %}
+
+</select>
+<br><br>
+<select class="form-select" aria-label="Default select example" name="destination" required>
+  <option value="0">Destination</option>
+
+  {% for place in item %}
+
+  <option value="{{place.id}}">{{place.location}}</option>
+
+  {% endfor item %}
+
+</select>
+  <br><br>
+ 
+
+  <button type="submit" class="btn btn-secondary">Search</button>
+</form>
+  {% endblock %}
